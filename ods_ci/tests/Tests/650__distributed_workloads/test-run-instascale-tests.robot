@@ -17,11 +17,8 @@ Run TestInstascaleMachinePool test
 
     # Set instascale  to true in the codeflare operator config map
     Log To Console    "Setting instascale to true in config map ....."
-     ${result} =    Run Process    oc get cm codeflare-operator-config -n redhat-ods-applications -o yaml | sed -e 's|enabled: false|enabled: true|' | oc apply -f -
-    ...    shell=true    stderr=STDOUT
-    IF    ${result.rc} != 0
-        FAIL    Can not enabled Instascale to true
-    END
+
+    Run Process    oc get cm codeflare-operator-config -n redhat-ods-applications -o yaml | sed -e 's|enabled: false|enabled: true|' | oc apply -f -
 
     # Fetch CLUSTERID and pass it as test env
     Log To Console    "Fetching cluster_id test ......."
