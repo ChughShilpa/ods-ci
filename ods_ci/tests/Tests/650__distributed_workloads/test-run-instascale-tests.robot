@@ -14,7 +14,7 @@ Run TestInstascaleMachinePool test
     
     [Tags]  CodeflareOperator
 
-    # CodeflareOperator.Prepare Codeflare E2E Test Suite
+    CodeflareOperator.Prepare Codeflare E2E Test Suite
 
     # Set instascale  to true in the codeflare operator config map
     Log To Console    "Setting instascale to true in config map ....."
@@ -25,13 +25,13 @@ Run TestInstascaleMachinePool test
     END
 
     # Generate ocm token and create a secret
-    Log To Console    "Generating token ....."
-    ${token} =    Run Process    ocm token --generate
-    ...    shell=true    stderr=STDOUT
-    IF    ${token.rc} != 0
-        FAIL    Can not generate token
-    END
-    CodeflareOperator.Create Instascale Secret    ${token.stdout}
+    # Log To Console    "Generating token ....."
+    # ${token} =    Run Process    ocm token --generate
+    # ...    shell=true    stderr=STDOUT
+    # IF    ${token.rc} != 0
+    #     FAIL    Can not generate token
+    # END
+    # CodeflareOperator.Create Instascale Secret    ${token.stdout}
 
     #Fetch cluster ID
     Log To Console    "Fetching cluster details ....."
