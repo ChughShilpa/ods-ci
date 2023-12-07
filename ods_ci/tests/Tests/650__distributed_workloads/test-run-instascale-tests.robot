@@ -5,6 +5,7 @@ Resource         ../../Resources/Common.robot
 Library          ../../../utils/scripts/ocm/ocm.py
 
 *** Variables ***
+${token}
  
 *** Test Cases ***
 Run TestInstascaleMachinePool test
@@ -17,22 +18,21 @@ Run TestInstascaleMachinePool test
 
     # Set instascale  to true in the codeflare operator config map
     Log To Console    "Setting instascale to true in config map ....."
-
     ${result} =    Run Process    oc get cm codeflare-operator-config -n redhat-ods-applications -o yaml | sed -e 's|enabled: false|enabled: true|' | oc apply -f -
     ...    shell=true    stderr=STDOUT
-    Log To Console    "print value of result.stdout ......"
-    Log To Console    ${result.stdout}
-    Log To Console    "print value of result.rc ......"
-    Log To Console    ${result.rc}
-    Log To Console    "print value of result ......"
-    Log To Console    ${result}
+    IF    ${result.rc} != 0
+        FAIL    Can not enable instascale to true
+    END
 
-    # Fetch CLUSTERID and pass it as test env
-    Log To Console    "Fetching cluster_id test ......."
-    ${cluster_id} = ocm.get_osd_cluster_id
-    Log To Console    "Value of Cluster_id ....."
-    Log To Console    "${cluster_id}"
+    # Generate ocm token and create a secret
+    Log To Console    "Generating token ....."
+    ${token} =    Run Process    ocm token --generate
+    ...    shell=true    stderr=STDOUT
+    IF    ${token.rc} != 0
+        FAIL    Can not generate token
+    END
+    CodeflareOperator.Create Instascale Secret    ${token.stdout}
 
     # Run TestInstascaleMachinePool test
     Log To Console    "Running instascale test ......."
-    Run Codeflare E2E Test    TestInstascaleMachinePool    ${cluster_id}
+    Run Codeflare E2E Test    TestInstascaleMachinePool
