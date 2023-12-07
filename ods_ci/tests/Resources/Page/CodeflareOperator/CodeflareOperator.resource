@@ -18,12 +18,12 @@ Prepare Codeflare E2E Test Suite
         FAIL    Unable to clone Codeflare repo ${CODEFLARE_REPO_URL}:${CODEFLARE_REPO_BRANCH}
     END
     
-    ${result} =    Run Process    oc patch datascienceclusters.datasciencecluster.opendatahub.io default-dsc --type 'json' -p '[{"op" : "replace" ,"path" : "/spec/components/ray/managementState" ,"value" : "Managed"}]'
+    ${result} =    Run Process    oc patch datascienceclusters.datasciencecluster.opendatahub.io rhods --type 'json' -p '[{"op" : "replace" ,"path" : "/spec/components/ray/managementState" ,"value" : "Managed"}]'
     ...    shell=true    stderr=STDOUT
     IF    ${result.rc} != 0
         FAIL    Can not enable ray
     END
-    ${result} =    Run Process    oc patch datascienceclusters.datasciencecluster.opendatahub.io default-dsc --type 'json' -p '[{"op" : "replace" ,"path" : "/spec/components/codeflare/managementState" ,"value" : "Managed"}]'
+    ${result} =    Run Process    oc patch datascienceclusters.datasciencecluster.opendatahub.io rhods --type 'json' -p '[{"op" : "replace" ,"path" : "/spec/components/codeflare/managementState" ,"value" : "Managed"}]'
     ...    shell=true    stderr=STDOUT
     IF    ${result.rc} != 0
         FAIL    Can not enable codeflare
