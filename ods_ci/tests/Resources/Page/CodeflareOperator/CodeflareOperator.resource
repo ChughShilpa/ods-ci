@@ -28,10 +28,11 @@ Prepare Codeflare E2E Test Suite
     IF    ${result.rc} != 0
         FAIL    Can not enable codeflare
     END
-    Create Directory    %{WORKSPACE}/codeflare-logs
+ #   Create Directory    Logs/codeflare-logs
+     Create Directory    %{WORKSPACE}/codeflare-logs
 
 Run Codeflare E2E Test
-    [Arguments]    ${TEST_NAME}
+    [Arguments]    ${TEST_NAME}    ${CLUSTER_ID}
     Log To Console    "Running test: ${TEST_NAME}"
     ${result} =    Run Process    go test -timeout 30m -v ./test/e2e -run ${TEST_NAME}
     ...    shell=true
@@ -39,8 +40,9 @@ Run Codeflare E2E Test
     ...    cwd=${CODEFLARE_DIR}
     ...    env:CODEFLARE_TEST_TIMEOUT_LONG=30m
     ...    env:CODEFLARE_TEST_OUTPUT_DIR=%{WORKSPACE}/codeflare-logs
+#    ...    env:CODEFLARE_TEST_OUTPUT_DIR=Logs/codeflare-logs
     ...    env:CLUSTER_TYPE=OSD
-    ...    env:CLUSTERID=27v6svtqscjf1ktaghgfqmq8bmgirh0p
+    ...    env:CLUSTERID=${CLUSTER_ID}
     Log To Console    ${result.stdout}
     IF    ${result.rc} != 0
         FAIL    ${TEST_NAME} failed

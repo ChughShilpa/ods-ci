@@ -14,7 +14,7 @@ Run TestInstascaleMachinePool test
     
     [Tags]  CodeflareOperator
 
-    CodeflareOperator.Prepare Codeflare E2E Test Suite
+    # CodeflareOperator.Prepare Codeflare E2E Test Suite
 
     # Set instascale  to true in the codeflare operator config map
     Log To Console    "Setting instascale to true in config map ....."
@@ -33,6 +33,17 @@ Run TestInstascaleMachinePool test
     END
     CodeflareOperator.Create Instascale Secret    ${token.stdout}
 
+    #Fetch cluster ID
+    Log To Console    "Fetching cluster details ....."
+    # ${cluster_id} = Run Process    ocm list clusters | grep %{TEST_CLUSTER} | awk '{print $1}'
+    ${cluster_id} =    Run Process    ocm list clusters | grep %{TEST_CLUSTER} | awk '{print $1}'
+    ...    shell=true    stderr=STDOUT
+    Log To Console    "Value of cluster_id   ............"
+    Log To Console    ${cluster_id.stdout}
+    IF    ${cluster_id.rc} != 0
+        FAIL    Can not fetch cluster details
+    END
+
     # Run TestInstascaleMachinePool test
     Log To Console    "Running instascale test ......."
-    Run Codeflare E2E Test    TestInstascaleMachinePool
+    Run Codeflare E2E Test    TestInstascaleMachinePool    ${cluster_id.stdout}
