@@ -66,7 +66,6 @@ Run TestInstascaleMachinePool E2E test
     ...     Tier3
     ...     DistributedWorkloads
     ...     CodeflareOperator
-    Skip If RHODS Is Self-Managed
 
     # Generate ocm token and create a secret
     Log To Console    "Generating token ....."
