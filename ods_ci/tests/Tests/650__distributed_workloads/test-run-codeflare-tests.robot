@@ -66,6 +66,7 @@ Run TestInstascaleMachinePool E2E test
     ...     Tier3
     ...     DistributedWorkloads
     ...     CodeflareOperator
+    Skip If RHODS Is Self-Managed
 
     # Generate ocm token and create a secret
     Log To Console    "Generating token ....."
@@ -84,10 +85,23 @@ Run TestInstascaleMachinePool E2E test
         FAIL    Can not enable instascale to true
     END
 
+    # OCM login
+    Log To Console    "OCM Login ....."
+    ${cluster_id} =    Run Process    ocm whoami
+    ...    shell=true    stderr=STDOUT
+    Log To Console    "Output of whoami   ............"
+    Log To Console    ${cluster_id.stdout}
+    IF    ${cluster_id.rc} != 0
+        FAIL    Can not fetch cluster details
+    END
+
+
     #Fetch cluster ID
     Log To Console    "Fetching cluster ID ....."
     ${cluster_id} =    Run Process    ocm list clusters | grep %{TEST_CLUSTER} | awk '{print $1}'
     ...    shell=true    stderr=STDOUT
+    Log To Console    "Value of cluster_id   ............"
+    Log To Console    ${cluster_id.stdout}
     IF    ${cluster_id.rc} != 0
         FAIL    Can not fetch cluster details
     END
