@@ -12,6 +12,7 @@ Resource          ../../../tasks/Resources/RHODS_OLM/install/oc_install.robot
 ${KUEUE_KUBECONFIG}         %{HOME}/.kube/config
 ${WORKER_NODE}              ${EMPTY}
 ${KUEUE_RELEASE_ASSETS}     %{KUEUE_RELEASE_ASSETS=https://github.com/opendatahub-io/kueue/releases/latest/download}
+${ODH_NAMESPACE}                %{ODH_NAMESPACE=redhat-ods-applications}
 
 *** Test Cases ***
 Run E2E test
@@ -43,6 +44,14 @@ Prepare Kueue E2E Test Suite
 
     Enable Component    kueue
     Wait Component Ready    kueue
+
+    Log To Console    Waiting for kueue-controller-manager to be available
+    ${result} =    Run Process    oc wait --for\=condition\=Available --timeout\=300s -n ${ODH_NAMESPACE} deployment/kueue-controller-manager
+    ...    shell=true    stderr=STDOUT
+    Log To Console    ${result.stdout}
+    IF    ${result.rc} != 0
+        FAIL    Timeout waiting for deployment/kueue-controller-manager to be available in ${ODH_NAMESPACE}
+    END
 
     # Add label instance-type=on-demand on worker node
     Log To Console    Add label on worker node ...
