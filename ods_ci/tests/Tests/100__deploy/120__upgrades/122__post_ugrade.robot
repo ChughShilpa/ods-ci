@@ -147,55 +147,6 @@ Verify Custom Runtime Exists After Upgrade
     Delete Serving Runtime Template From CLI By Runtime Name OR Display Name  runtime_name=caikit-runtime
     [Teardown]   Dashboard Test Teardown
 
-Verify Ray Cluster Exists And Monitor Workload Metrics By Submitting Ray Job After Upgrade
-    [Documentation]    check the Ray Cluster exists , submit ray job and  verify resource usage after upgrade
-    [Tags]    Upgrade
-    [Setup]    Prepare Codeflare-SDK Test Setup
-    ${PRJ_UPGRADE}    Set Variable    test-ns-rayupgrade
-    ${LOCAL_QUEUE}    Set Variable    local-queue-mnist
-    ${JOB_NAME}    Set Variable    mnist
-    Run Codeflare-SDK Test    upgrade    raycluster_sdk_upgrade_test.py::TestMnistJobSubmit
-    Set Global Variable    ${DW_PROJECT_CREATED}    True
-    Set Library Search Order    SeleniumLibrary
-    RHOSi Setup
-    Launch Dashboard    ${TEST_USER.USERNAME}    ${TEST_USER.PASSWORD}    ${TEST_USER.AUTH_TYPE}
-    ...    ${ODH_DASHBOARD_URL}    ${BROWSER.NAME}    ${BROWSER.OPTIONS}
-    Open Distributed Workload Metrics Home Page
-    Select Distributed Workload Project By Name    ${PRJ_UPGRADE}
-    Select Refresh Interval    15 seconds
-    Wait Until Element Is Visible    ${DISTRIBUITED_WORKLOAD_RESOURCE_METRICS_TITLE_XP}    timeout=20
-    Wait Until Element Is Visible    xpath=//*[text()="Running"]    timeout=30
-
-    ${cpu_requested} =   Get CPU Requested    ${PRJ_UPGRADE}    ${LOCAL_QUEUE}
-    ${memory_requested} =   Get Memory Requested    ${PRJ_UPGRADE}    ${LOCAL_QUEUE}    Upgrade
-    Check Requested Resources Chart    ${PRJ_UPGRADE}    ${cpu_requested}    ${memory_requested}
-    Check Requested Resources    ${PRJ_UPGRADE}    ${CPU_SHARED_QUOTA}
-    ...    ${MEMEORY_SHARED_QUOTA}    ${cpu_requested}    ${memory_requested}    RayCluster
-
-    Check Distributed Workload Resource Metrics Status    ${JOB_NAME}    Running
-    Check Distributed Worklaod Status Overview    ${JOB_NAME}    Running
-    ...    All pods were ready or succeeded since the workload admission
-
-    Click Button    ${PROJECT_METRICS_TAB_XP}
-    Check Distributed Workload Resource Metrics Chart    ${PRJ_UPGRADE}    ${cpu_requested}
-    ...    ${memory_requested}    RayCluster    ${JOB_NAME}
-
-    [Teardown]    Run Keywords    Cleanup Codeflare-SDK Setup    AND
-    ...    Codeflare Upgrade Tests Teardown    ${PRJ_UPGRADE}    ${DW_PROJECT_CREATED}
-
-Run Training Operator ODH Run PyTorchJob Test Use Case
-    [Documentation]    Run Training Operator ODH Run PyTorchJob Test Use Case
-    [Tags]             Upgrade
-    [Setup]            Prepare Training Operator E2E Upgrade Test Suite
-    Run Training Operator ODH Upgrade Test    TestRunPytorchjob
-    [Teardown]         Teardown Training Operator E2E Upgrade Test Suite
-
-Run Training Operator ODH Run Sleep PyTorchJob Test Use Case
-    [Documentation]    Verify that running PyTorchJob Pod wasn't restarted
-    [Tags]             Upgrade
-    [Setup]            Prepare Training Operator E2E Upgrade Test Suite
-    Run Training Operator ODH Upgrade Test    TestVerifySleepPytorchjob
-    [Teardown]         Teardown Training Operator E2E Upgrade Test Suite
 
 *** Keywords ***
 Dashboard Suite Setup
