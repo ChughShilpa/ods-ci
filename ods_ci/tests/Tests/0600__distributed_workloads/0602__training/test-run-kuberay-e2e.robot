@@ -41,9 +41,23 @@ Run TestRayJobLightWeightMode test
     ...     DistributedWorkloads
     ...     Training
     ...     Kuberay
-    ...     ProductBug:RHOAIENG-6614
     Run Kuberay E2E Test    TestRayJobLightWeightMode
 
+Run TestRayJobRetry test
+    [Documentation]    Run Go E2E test: TestRayJobRetry
+    [Tags]  Tier1
+    ...     DistributedWorkloads
+    ...     Training
+    ...     KuberayNew
+    Run Kuberay E2E Test    TestRayJobRetry
+
+Run TestRayService test
+    [Documentation]    Run Go E2E test: TestRayService
+    [Tags]  Tier1
+    ...     DistributedWorkloads
+    ...     Training
+    ...     KuberayNew
+    Run Kuberay E2E Test    TestRayService
 
 *** Keywords ***
 Prepare Kuberay E2E Test Suite
