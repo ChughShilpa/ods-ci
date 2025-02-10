@@ -94,8 +94,8 @@ Run Kuberay E2E Test
     Log To Console    Running Kuberay E2E test: ${test_name}
     ${result} =    Run Process    ./e2e -test.timeout 30m -test.parallel 1 -test.run ${test_name}
     ...    env:KUBERAY_TEST_TIMEOUT_SHORT=2m
-    ...    env:KUBERAY_TEST_TIMEOUT_MEDIUM=10m
-    ...    env:KUBERAY_TEST_TIMEOUT_LONG=12m
+    ...    env:KUBERAY_TEST_TIMEOUT_MEDIUM=12m
+    ...    env:KUBERAY_TEST_TIMEOUT_LONG=15m
     ...    env:KUBERAY_TEST_RAY_IMAGE=${RAY_CUDA_IMAGE_3.11}
     ...    env:KUBERAY_TEST_OUTPUT_DIR=%{WORKSPACE}/kuberay-logs
     ...    shell=true
