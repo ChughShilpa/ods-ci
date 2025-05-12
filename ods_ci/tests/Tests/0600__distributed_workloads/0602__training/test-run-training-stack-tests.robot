@@ -108,7 +108,7 @@ Run Training operator KFTO Huggingface Trainer test with AMD ROCm image (PyTorch
 
 Run Training operator KFTO Huggingface Trainer test with AMD ROCm image (PyTorch 2_5_1) using Single Node Multi Gpu
     [Documentation]    Run Go KFTO test for Training operator using PyTorch job with AMD ROCm image (PyTorch 2_5_1) using Single Node Multi Gpu configuration
-    [Tags]  Kfto-ROCm
+    [Tags]  Kfto-ROCms
     ...     DistributedWorkloads
     ...     TrainingKubeflow
     ...     TrainingOperator
@@ -141,7 +141,7 @@ Run Training operator KFTO Huggingface Trainer test with AMD ROCm image (PyTorch
 
 Run Training operator KFTO Huggingface Trainer test with AMD ROCm image (PyTorch 2_5_1) using Multi Node Multi Gpu
     [Documentation]    Run Go KFTO test for Training operator using PyTorch job with AMD ROCm image (PyTorch 2_5_1) using Multi Node Multi Gpu configuration
-    [Tags]  Kfto-ROCm
+    [Tags]  Kfto-ROCms
     ...     DistributedWorkloads
     ...     TrainingKubeflow
     ...     TrainingOperator
@@ -278,7 +278,7 @@ Run Training operator KFTO_MNIST multi-node multi-gpu test with NVIDIA CUDA imag
 
 Run Training operator KFTO_MNIST multi-node multi-gpu test with AMD ROCm image (PyTorch 2_4_1)
     [Documentation]    Run Go KFTO_MNIST multi-node multi-gpu test for Training operator using PyTorch job with AMD ROCm image (PyTorch 2_4_1)   - It requires 2 cluster-nodes with 2 GPUs each
-    [Tags]  Kfto-ROCm
+    [Tags]  Kfto-ROCms
     ...     DistributedWorkloads
     ...     TrainingKubeflow
     ...     TrainingOperator
@@ -286,7 +286,7 @@ Run Training operator KFTO_MNIST multi-node multi-gpu test with AMD ROCm image (
 
 Run Training operator KFTO_MNIST multi-node multi-gpu test with AMD ROCm image (PyTorch 2_5_1)
     [Documentation]    Run Go KFTO_MNIST multi-node multi-gpu test for Training operator using PyTorch job with AMD ROCm image (PyTorch 2_5_1)  - It requires 2 cluster-nodes with 2 GPUs each
-    [Tags]  Kfto-ROCm
+    [Tags]  Kfto-ROCms
     ...     DistributedWorkloads
     ...     TrainingKubeflow
     ...     TrainingOperator
