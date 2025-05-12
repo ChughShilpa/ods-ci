@@ -176,7 +176,7 @@ Run Training operator KFTO error handling test with AMD ROCm image (PyTorch 2_4_
 
 Run Training operator KFTO error handling test with AMD ROCm image (PyTorch 2_5_1)
     [Documentation]    Run Go KFTO error handling test for Training operator using PyTorch job with AMD ROCm image (PyTorch 2_5_1)
-    [Tags]  RHOAIENG-14542
+    [Tags]  RHOAIENG-14542ss
     ...     Tier1
     ...     DistributedWorkloads
     ...     TrainingKubeflow
